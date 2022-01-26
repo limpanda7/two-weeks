@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './Challenge.scss';
 import Fail from "./Fail";
 import Finish from "./Finish";
+import Modal from "react-modal";
 
 const Challenge = () => {
 
@@ -13,6 +14,7 @@ const Challenge = () => {
     const [completed, setCompleted] = useState(false);
     const [failed, setFailed] = useState(false);
     const [finished, setFinished] = useState(false);
+    const [restartOpen, setRestartOpen] = useState(false);
 
     useEffect(() => {
         calcDay();
@@ -81,6 +83,26 @@ const Challenge = () => {
         setCompleted(true);
     }
 
+    const restartChallenge = () => {
+        localStorage.removeItem('routines');
+        localStorage.removeItem('prize');
+        localStorage.removeItem('startDt');
+        localStorage.removeItem('wordList');
+        window.location.reload();
+    }
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: '300px'
+        },
+    };
+
     if (failed) {
         return <Fail/>
     } else if (finished) {
@@ -106,6 +128,24 @@ const Challenge = () => {
                 <button disabled={count !== routines.length || completed} onClick={() => completeToday()}>
                     루틴 완료
                 </button>
+
+                <br/>
+                <br/>
+
+                <button onClick={() => setRestartOpen(true)}>
+                    초기화
+                </button>
+
+                <Modal
+                    isOpen={restartOpen}
+                    style={customStyles}
+                >
+                    <p>챌린지를 정말 초기화 하시겠습니까?<br/>현재까지의 진행상황은 저장되지 않습니다.</p>
+                    <div className='ButtonWrap'>
+                        <button onClick={() => setRestartOpen(false)}>취소</button>
+                        <button onClick={() => restartChallenge()}>확인</button>
+                    </div>
+                </Modal>
             </div>
         )
     }
