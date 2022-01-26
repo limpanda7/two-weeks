@@ -1,0 +1,26 @@
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100vw;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+
+  li {
+    text-align: left;
+  }
+
+  .Prize {
+    margin-bottom: 40px;
+  }
+}
+
+.ButtonWrap {
+  width: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
