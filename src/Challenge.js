@@ -73,7 +73,7 @@ const Challenge = () => {
 
     const completeToday = () => {
         if (!word || word === '') {
-            alert('오늘의 한 마디를 적어주세요!')
+            alert('오늘의 한 마디를 적어주세요.')
             return false;
         }
 
@@ -111,6 +111,8 @@ const Challenge = () => {
         return (
             <div className='Challenge'>
                 <h1>Day {day}</h1>
+
+                <div className='Routines'>
                 {
                     routines.map((routine, index) => {
                         return (
@@ -121,26 +123,28 @@ const Challenge = () => {
                         )
                     })
                 }
+                </div>
+
                 <div className='Word'>
-                    <h3>오늘의 한마디</h3>
+                    <p>오늘의 한마디</p>
                     <input value={word} onChange={(e) => setWord(e.target.value)} disabled={completed}/>
                 </div>
                 <button disabled={count !== routines.length || completed} onClick={() => completeToday()}>
-                    루틴 완료
+                    오늘 루틴 완료!
                 </button>
 
                 <br/>
                 <br/>
 
                 <button onClick={() => setRestartOpen(true)}>
-                    초기화
+                    도전 초기화
                 </button>
 
                 <Modal
                     isOpen={restartOpen}
                     style={customStyles}
                 >
-                    <p>챌린지를 정말 초기화 하시겠습니까?<br/>현재까지의 진행상황은 저장되지 않습니다.</p>
+                    <p>정말 초기화 하시겠습니까?<br/>현재까지의 진행상황은 저장되지 않습니다.</p>
                     <div className='ButtonWrap'>
                         <button onClick={() => setRestartOpen(false)}>취소</button>
                         <button onClick={() => restartChallenge()}>확인</button>

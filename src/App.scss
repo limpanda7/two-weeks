@@ -9,12 +9,20 @@
   text-align: center;
   padding: 10px;
 
+  .TitleImg {
+    width: 200px;
+  }
+
   li {
     text-align: left;
   }
 
   .Prize {
     margin-bottom: 40px;
+  }
+
+  .Note {
+    font-size: 10px;
   }
 }
 

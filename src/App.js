@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Modal from 'react-modal';
 import Challenge from "./Challenge";
 import './App.scss';
+import TitleImg from './images/two-weeks.jpg';
 
 const App = () => {
 
@@ -26,12 +27,12 @@ const App = () => {
 
     const startChallenge = () => {
         if (routines.length === 0) {
-            alert('루틴을 한 개 이상 입력 해 주세요')
+            alert('루틴을 한 개 이상 입력 해 주세요.')
             return false;
         }
 
         if (prize === '') {
-            alert('상품을 입력 해 주세요')
+            alert('상품을 입력 해 주세요.')
             return false;
         }
 
@@ -66,7 +67,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <h1>TWO WEEKS</h1>
+            <img src={TitleImg} className='TitleImg'/>
             <h3>2주동안 도전할 루틴을<br/>아래에 적어주세요.</h3>
             <form onSubmit={(e) => addRoutine(e)}>
                 <input value={newRoutine} onChange={(e) => setNewRoutine(e.target.value)}/>
@@ -91,6 +92,12 @@ const App = () => {
             </div>
 
             <button onClick={() => startChallenge()}>챌린지 시작하기</button>
+
+            <br/>
+            <br/>
+            <br/>
+
+            <p className='Note'>작성한 정보는 어떠한 서버로도 전송되지 않으며,<br/>오직 사용자의 브라우저에만 저장됩니다.</p>
 
             <Modal
                 isOpen={modalOpen}
