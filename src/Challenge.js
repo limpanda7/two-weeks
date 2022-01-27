@@ -14,6 +14,7 @@ const Challenge = () => {
     const [completed, setCompleted] = useState(false);
     const [failed, setFailed] = useState(false);
     const [finished, setFinished] = useState(false);
+    const [completeModal, setCompleteModal] = useState(false);
     const [restartOpen, setRestartOpen] = useState(false);
 
     useEffect(() => {
@@ -80,6 +81,7 @@ const Challenge = () => {
         wordList.push(word);
         localStorage.setItem('wordList', JSON.stringify(wordList))
 
+        setCompleteModal(true);
         setCompleted(true);
     }
 
@@ -139,6 +141,16 @@ const Challenge = () => {
                 <button onClick={() => setRestartOpen(true)}>
                     도전 초기화
                 </button>
+
+                <Modal
+                    isOpen={completeModal}
+                    style={customStyles}
+                >
+                    <p>저장되었습니다.</p>
+                    <div className='ButtonWrap'>
+                        <button onClick={() => setCompleteModal(false)}>확인</button>
+                    </div>
+                </Modal>
 
                 <Modal
                     isOpen={restartOpen}

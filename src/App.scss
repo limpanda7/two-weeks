@@ -15,6 +15,13 @@
 
   li {
     text-align: left;
+    width: 90%;
+
+    .ListItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 
   .Prize {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import Modal from 'react-modal';
 import Challenge from "./Challenge";
 import './App.scss';
@@ -11,18 +11,26 @@ const App = () => {
     const [prize, setPrize] = useState('');
     const [modalOpen, setModalOpen] = useState(false);
 
-    if (localStorage.getItem('routines')) {
-        return (
-            <div className="App">
-                <Challenge/>
-            </div>
-        )
-    }
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
 
     const addRoutine = (e) => {
         e.preventDefault();
+
+        if (newRoutine === '') {
+            alert('한 글자 이상 입력해주세요.')
+            return false;
+        }
+
         setRoutines([...routines, newRoutine]);
         setNewRoutine('');
+    }
+
+    const removeRoutine = (index) => {
+        const tempArr = routines;
+        tempArr.splice(index, 1);
+        setRoutines(tempArr);
+        forceUpdate();
     }
 
     const startChallenge = () => {
@@ -65,6 +73,14 @@ const App = () => {
         },
     };
 
+    if (localStorage.getItem('routines')) {
+        return (
+            <div className="App">
+                <Challenge/>
+            </div>
+        )
+    }
+
     return (
         <div className="App">
             <img src={TitleImg} className='TitleImg'/>
@@ -79,7 +95,10 @@ const App = () => {
                     routines.map((routine, index) => {
                         return (
                             <li key={index}>
-                                {routine}
+                                <div className='ListItem'>
+                                    <span>{routine}</span>
+                                    <span onClick={() => removeRoutine(index)}>❌</span>
+                                </div>
                             </li>
                         )
                     })
